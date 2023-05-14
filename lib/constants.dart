@@ -1,6 +1,6 @@
 class Constants {
   static const urlProd =
-      "abactechapi-env.eba-kthzgquw.us-east-1.elasticbeanstalk.com";
+      "http://abctech-api-env.eba-ksvbscmj.us-east-1.elasticbeanstalk.com";
   static const urlDev = "http://localhost";
-  static const url = urlDev;
+  static const url = urlProd;
 }

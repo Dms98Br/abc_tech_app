@@ -8,5 +8,5 @@ abstract class AssistanceProviderInterface {
 class AssistanceProvider extends GetConnect
     implements AssistanceProviderInterface {
   @override
-  Future<Response> getAssists() => get('${Constants.url}/assists');
+  Future<Response> getAssists() => get('${Constants.url}/assists/');
 }
