@@ -23,11 +23,14 @@ class AssistanceController extends GetxController
     selectedAssists = Get.arguments;
   }
 
+  int assistSelected(Assist assist) {
+    return selectedAssists.indexWhere((element) => element.id == assist.id);
+  }
+
   void selectAssist(int index) {
-    //TODO: Está com bug na hora de remover a seleção
     Assist assist = allAssists[index];
-    int indexFound =
-        selectedAssists.indexWhere((element) => element.id == index);
+    int indexFound = assistSelected(assist);
+
     if (indexFound == -1) {
       selectedAssists.add(assist);
     } else {
@@ -38,8 +41,7 @@ class AssistanceController extends GetxController
 
   bool isSelected(int index) {
     Assist assist = allAssists[index];
-    int indexFound =
-        selectedAssists.indexWhere((element) => element.id == assist.id);
+    int indexFound = assistSelected(assist);
     return indexFound != -1;
   }
 
