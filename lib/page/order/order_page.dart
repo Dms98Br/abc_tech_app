@@ -2,8 +2,9 @@ import 'package:abc_tech_app/controller/order_controller.dart';
 import 'package:abc_tech_app/model/assist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:get/utils.dart';
+import 'package:get/get.dart';
+//import 'package:get/get_state_manager/get_state_manager.dart';
+//import 'package:get/utils.dart';
 
 class OrderPage extends GetView<OrderController> {
   const OrderPage({super.key});
@@ -81,7 +82,18 @@ class OrderPage extends GetView<OrderController> {
                 children: [
                   Expanded(
                       child: ElevatedButton(
-                    onPressed: controller.finishStartOrder,
+                    onPressed: () {
+                      if (controller.operatorIdController.text.isEmpty) {
+                        Get.snackbar('Aviso', 'Preencha o código do prestador',
+                            backgroundColor: Colors.yellow[800]);
+                      } else if (controller.selectedAssists.isEmpty) {
+                        Get.snackbar(
+                            'Aviso', 'Selecione o(s) serviço(s) prestado(s)',
+                            backgroundColor: Colors.yellow[800]);
+                      } else {
+                        controller.finishStartOrder();
+                      }
+                    },
                     child: Obx(() {
                       if (controller.screenState.value == OrderState.creating) {
                         return const Text('Iniciar');

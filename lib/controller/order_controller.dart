@@ -36,7 +36,6 @@ class OrderController extends GetxController {
   }
 
   finishStartOrder() {
-    print(screenState.value);
     switch (screenState.value) {
       case OrderState.creating:
         _geolocationService.getPosition().then((value) {
@@ -55,7 +54,6 @@ class OrderController extends GetxController {
 
         break;
       case OrderState.started:
-        //TODO: Fazer tratativa
         _geolocationService.getPosition().then((value) {
           var end = OrderLocation(
               latitude: value.latitude,
@@ -67,7 +65,6 @@ class OrderController extends GetxController {
         });
         break;
       case OrderState.finished:
-        //TODO: Fazer tratativa
         screenState.value = OrderState.creating;
         break;
       default:
@@ -76,19 +73,20 @@ class OrderController extends GetxController {
 
   void _createOrder() {
     _orderService.createOrder(_order).then((value) {
-      print(value);
       if (value) {
+        operatorIdController.text = '';
+        selectedAssists.removeRange(0, selectedAssists.length);
+        screenState.value = OrderState.creating;
         Get.snackbar('Sucesso', 'Ordem aberto com sucesso!',
-            backgroundColor: Colors.green);
+            backgroundColor: Colors.green[800]);
       } else {
         Get.snackbar('Erro', 'Problema ao criar ordem!',
-            backgroundColor: Colors.red);
+            backgroundColor: Colors.red[800]);
       }
     }).onError((error, stackTrace) {
-      print(error);
       Get.snackbar(
           'Erro', 'Problema ao criar ordem! Entre em contato com suporte!',
-          backgroundColor: Colors.red);
+          backgroundColor: Colors.red[800]);
     });
   }
 }
